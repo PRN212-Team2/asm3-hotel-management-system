@@ -1,0 +1,16 @@
+[
+  {
+    "BookingReservationId": 1,
+    "BookingDate": "2023-12-20",
+    "TotalPrice": 378.0000,
+    "CustomerId": 3,
+    "BookingStatus": 1
+  },
+  {
+    "BookingReservationId": 2,
+    "BookingDate": "2023-12-21",
+    "TotalPrice": 1493.0000,
+    "CustomerId": 3,
+    "BookingStatus": 1
+  }
+]
