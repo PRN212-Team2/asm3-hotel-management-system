@@ -10,8 +10,10 @@ namespace BusinessServiceLayer.Interfaces
     public interface IBookingReservationService
     {
         Task<IReadOnlyList<BookingReservationDTO>> GetBookingReservationsByCustomerIdAsync(int customerId);
-        Task<IReadOnlyList<BookingReservationReportStatisticDTO>> GetBookingReservationsAsync(DateTime startDate, DateTime endDate);
+        Task<IReadOnlyList<BookingReservationReportStatisticDTO>> GetBookingReservationsForReportAsync(DateTime startDate, DateTime endDate);
         Task<BookingReservationDetailDTO> GetBookingReservationDetailByIdAsync(int id);
         Task MakeReservation(int customerId, IReadOnlyList<BasketItemDTO> basketItems);
+        Task<IReadOnlyList<BookingReservationReportStatisticDTO>> GetPendingBookingReservationsAsync();
+        Task ApproveBookingReservation(int id);
     }
 }

@@ -36,6 +36,9 @@
             <DataTemplate DataType="{x:Type viewModels:ListReportStatisticsViewModel}">
                 <views:ReportStatisticView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:ListBookingReservationViewModel}">
+                <views:ManageBookingReservationView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:CustomerProfileViewModel}">
                 <views:CustomerProfileView/>
             </DataTemplate>
@@ -83,6 +86,15 @@
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="ChartLine" VerticalAlignment="Center" Margin="0 0 10 0"/>
                     <TextBlock Text="Report Statistic" VerticalAlignment="Center"/>
+                </StackPanel>
+            </RadioButton>
+
+            <RadioButton Style="{StaticResource MenuButtonTheme}"
+                    Command="{Binding NavigateToManageBookingReservationViewCommand}"
+                    Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibility}}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="CalendarEdit" VerticalAlignment="Center" Margin="0 0 10 0"/>
+                    <TextBlock Text="Manage Booking" VerticalAlignment="Center"/>
                 </StackPanel>
             </RadioButton>
 
