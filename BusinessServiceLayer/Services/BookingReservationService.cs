@@ -81,26 +81,9 @@ namespace BusinessServiceLayer.Services
 
         public async Task ApproveBookingReservation(int id)
         {
-            // Check if the repository is null
-            if (_bookingReservationRepo == null)
-            {
-                throw new InvalidOperationException("Booking reservation repository is not initialized.");
-            }
-
-            // Retrieve the booking reservation
             var bookingReservation = await _bookingReservationRepo.GetByIdAsync(id);
-
-            // Check if the booking reservation was found
-            if (bookingReservation == null)
-            {
-                throw new KeyNotFoundException($"No booking reservation found with id {id}.");
-            }
-
-            // Update the booking status
-            bookingReservation.BookingStatus = 1; // Ensure that this is the correct value for "approved"
+            bookingReservation.BookingStatus = 1; 
             _bookingReservationRepo.Update(bookingReservation);
-
-            // Save changes
             await _bookingReservationRepo.SaveAllAsync();
         }
 
