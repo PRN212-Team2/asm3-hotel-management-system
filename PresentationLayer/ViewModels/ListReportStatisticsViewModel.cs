@@ -65,9 +65,9 @@ namespace PresentationLayer.ViewModels
             // Initialize StartDate and EndDate if needed
         }
 
-        public async Task GetBookingReservationsAsync()
+        public async Task GetBookingReservationsForReportAsync()
         {
-            var bookingReservations = await _bookingReservationService.GetBookingReservationsAsync(default(DateTime), default(DateTime));
+            var bookingReservations = await _bookingReservationService.GetBookingReservationsForReportAsync(default(DateTime), default(DateTime));
             ReportStatistics = new ObservableCollection<BookingReservationReportStatisticDTO>(bookingReservations);
             CalculateRevenue();
         }
@@ -86,25 +86,30 @@ namespace PresentationLayer.ViewModels
                 return;
             }
 
-            var bookingReservations = await _bookingReservationService.GetBookingReservationsAsync(StartDate.Value, EndDate.Value);
+            var bookingReservations = await _bookingReservationService.GetBookingReservationsForReportAsync(StartDate.Value, EndDate.Value);
             ReportStatistics = new ObservableCollection<BookingReservationReportStatisticDTO>(bookingReservations);
             CalculateRevenue();
         }
 
         private async Task ResetFilter(object obj)
         {
-            await GetBookingReservationsAsync();
+            await GetBookingReservationsForReportAsync();
             StartDate = null;
             EndDate = null;
         }
 
         private void CalculateRevenue()
         {
-            if(ReportStatistics != null)
+            if (ReportStatistics != null)
             {
-                Revenue = ReportStatistics.Sum(r => r.TotalPrice);
+                Revenue = ReportStatistics
+                    .Where(r => r.BookingStatus) // Filter for items with BookingStatus true
+                    .Sum(r => r.TotalPrice);
             }
-            else Revenue = 0;
+            else
+            {
+                Revenue = 0;
+            }
         }
     }
 }

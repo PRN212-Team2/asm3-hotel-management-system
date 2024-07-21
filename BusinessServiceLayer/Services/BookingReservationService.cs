@@ -11,10 +11,11 @@ namespace BusinessServiceLayer.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-
-        public BookingReservationService(IUnitOfWork unitOfWork,
+        private readonly IGenericRepository<BookingReservation> _bookingReservationRepo;
+        public BookingReservationService(IGenericRepository<BookingReservation> bookingReservationRepo, IUnitOfWork unitOfWork,
             IMapper mapper)
         {
+            _bookingReservationRepo = bookingReservationRepo;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -33,7 +34,18 @@ namespace BusinessServiceLayer.Services
             return _mapper.Map<IReadOnlyList<BookingReservation>, IReadOnlyList<BookingReservationDTO>>(bookingReservations);
         }
 
-        public async Task<IReadOnlyList<BookingReservationReportStatisticDTO>> GetBookingReservationsAsync(DateTime startDate, DateTime endDate)
+        public async Task<IReadOnlyList<BookingReservationReportStatisticDTO>> GetPendingBookingReservationsAsync()
+        {
+            var bookingReservations = await _unitOfWork.Repository<BookingReservation>().ListAllAsync();
+
+            var pendingReservations = bookingReservations
+                .Where(x => x.BookingStatus == 0)
+                .ToList();
+
+            return _mapper.Map<IReadOnlyList<BookingReservation>, IReadOnlyList<BookingReservationReportStatisticDTO>>(pendingReservations);
+        }
+
+        public async Task<IReadOnlyList<BookingReservationReportStatisticDTO>> GetBookingReservationsForReportAsync(DateTime startDate, DateTime endDate)
         {
 
             var spec = new BookingReservationSpecification(startDate, endDate);
@@ -61,10 +73,36 @@ namespace BusinessServiceLayer.Services
                 bookingDetails.Add(bookingDetail);
             }
 
-            var reservation = new BookingReservation(revId, totalPrice, customerId, 1, bookingDetails);
+            var reservation = new BookingReservation(revId, totalPrice, customerId, 0, bookingDetails);
 
             _unitOfWork.Repository<BookingReservation>().Add(reservation);
             await _unitOfWork.Complete();
         }
+
+        public async Task ApproveBookingReservation(int id)
+        {
+            // Check if the repository is null
+            if (_bookingReservationRepo == null)
+            {
+                throw new InvalidOperationException("Booking reservation repository is not initialized.");
+            }
+
+            // Retrieve the booking reservation
+            var bookingReservation = await _bookingReservationRepo.GetByIdAsync(id);
+
+            // Check if the booking reservation was found
+            if (bookingReservation == null)
+            {
+                throw new KeyNotFoundException($"No booking reservation found with id {id}.");
+            }
+
+            // Update the booking status
+            bookingReservation.BookingStatus = 1; // Ensure that this is the correct value for "approved"
+            _bookingReservationRepo.Update(bookingReservation);
+
+            // Save changes
+            await _bookingReservationRepo.SaveAllAsync();
+        }
+
     }
 }

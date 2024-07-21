@@ -62,6 +62,7 @@ namespace PresentationLayer
                     services.AddSingleton<CreateRoomInformationViewModel>();
                     services.AddSingleton<DeleteRoomInformationViewModel>();
                     services.AddSingleton<UpdateRoomInformationViewModel>();
+                    services.AddSingleton<ListBookingReservationViewModel>();
                     services.AddSingleton<Func<Type, ViewModelBase>>(services => viewModelType
                     => (ViewModelBase)services.GetRequiredService(viewModelType));
                     services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

@@ -17,6 +17,7 @@ namespace PresentationLayer.ViewModels
         private readonly ListReportStatisticsViewModel _listReportStatisticViewModel;
         private readonly MakeReservationViewModel _makeReservationViewModel;
         private readonly ListRoomInformationViewModel _listRoomInformationViewModel;
+        private readonly ListBookingReservationViewModel _listBookingReservationViewModel;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
@@ -60,6 +61,7 @@ namespace PresentationLayer.ViewModels
         public RelayCommand NavigateToReportStatisticViewCommand { get; set; }
         public RelayCommand NavigateToMakeReservationViewCommand { get; set; }
         public RelayCommand NavigateToManageRoomInformationViewCommand { get; set; }
+        public RelayCommand NavigateToManageBookingReservationViewCommand { get; set; }
         public RelayCommand LogoutCommand { get; set; }
 
         public MainViewModel(INavigationService navService, 
@@ -69,6 +71,7 @@ namespace PresentationLayer.ViewModels
             ListReportStatisticsViewModel listReportStatisticsViewModel,
             MakeReservationViewModel makeReservationViewModel,
             ListRoomInformationViewModel listRoomInformationViewModel,
+            ListBookingReservationViewModel listBookingReservationViewModel,
             IUserService userService,
             IMapper mapper) 
         {
@@ -79,6 +82,7 @@ namespace PresentationLayer.ViewModels
             _listReportStatisticViewModel = listReportStatisticsViewModel;
             _makeReservationViewModel = makeReservationViewModel;
             _listRoomInformationViewModel = listRoomInformationViewModel;
+            _listBookingReservationViewModel = listBookingReservationViewModel;
             _userService = userService;
             _mapper = mapper;
             NavigateToManageCustomerViewCommand = new RelayCommand(
@@ -93,6 +97,8 @@ namespace PresentationLayer.ViewModels
                 async o => await NavigateToMakeReservationView(o), o => true);
             NavigateToManageRoomInformationViewCommand = new RelayCommand(
                 async o => await NavigateToManageRoomInformationView(o), o => true);
+            NavigateToManageBookingReservationViewCommand = new RelayCommand(
+                async o => await NavigateToManageBookingReservationView(o), o => true);
         }
 
         private async Task NavigateToManageCustomerView(object obj)
@@ -116,7 +122,7 @@ namespace PresentationLayer.ViewModels
 
         public async Task NavigateToReportStatisticView(object obj)
         {
-            await _listReportStatisticViewModel.GetBookingReservationsAsync();
+            await _listReportStatisticViewModel.GetBookingReservationsForReportAsync();
             Navigation.NavigateTo<ListReportStatisticsViewModel>();
         }
 
@@ -133,6 +139,12 @@ namespace PresentationLayer.ViewModels
             await _listRoomInformationViewModel.GetRoomTypesAsync();
             await _listRoomInformationViewModel.GetRoomInformationAsync();
             Navigation.NavigateTo<ListRoomInformationViewModel>();
+        }
+
+        public async Task NavigateToManageBookingReservationView(object obj)
+        {
+            await _listBookingReservationViewModel.GetBookingReservationsForManageAsync();
+            Navigation.NavigateTo<ListBookingReservationViewModel>();
         }
         public async Task LoadCurrentUser()
         {
