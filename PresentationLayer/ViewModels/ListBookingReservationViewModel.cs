@@ -2,6 +2,8 @@
 using BusinessServiceLayer.Interfaces;
 using PresentationLayer.Commands;
 using PresentationLayer.Services;
+using PresentationLayer.Views;
+using RepositoryLayer.Entities;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -10,8 +12,9 @@ namespace PresentationLayer.ViewModels
     public class ListBookingReservationViewModel : ViewModelBase
     {
         private readonly IBookingReservationService _bookingReservationService;
-        private ObservableCollection<BookingReservationReportStatisticDTO> _bookingReservations;
-        public ObservableCollection<BookingReservationReportStatisticDTO> BookingReservationList
+        private ObservableCollection<BookingReservationItemViewModel> _bookingReservations;
+        private readonly BookingReservationDetailViewModel _bookingReservationDetailViewModel;
+        public ObservableCollection<BookingReservationItemViewModel> BookingReservationList
         {
             get => _bookingReservations;
             set
@@ -22,19 +25,32 @@ namespace PresentationLayer.ViewModels
         }
 
         public RelayCommand UpdateReservationStatusCommand { get; set; }
-
-        public ListBookingReservationViewModel(IBookingReservationService bookingReservationService)
+        public ListBookingReservationViewModel(IBookingReservationService bookingReservationService, 
+            BookingReservationDetailViewModel bookingReservationDetailViewModel)
         {
             _bookingReservationService = bookingReservationService;
+            _bookingReservationDetailViewModel = bookingReservationDetailViewModel;
             UpdateReservationStatusCommand = new RelayCommand(async o => await UpdateReservationStatusAsync(o), o => true);
         }
 
 
         public async Task GetBookingReservationsForManageAsync()
         {
-            var bookingReservation = await _bookingReservationService.GetPendingBookingReservationsAsync();
-            BookingReservationList = new ObservableCollection<BookingReservationReportStatisticDTO>(bookingReservation);
+            var bookingReservations = await _bookingReservationService.GetBookingReservationsForManageAsync();
+            var bookingObservable = new ObservableCollection<BookingReservationItemViewModel>();
+            foreach (var booking in bookingReservations)
+            {
+                var bookingDetail = new BookingReservationItemViewModel(_bookingReservationDetailViewModel);
+                bookingDetail.Id = booking.Id;
+                bookingDetail.BookingDate = booking.BookingDate;
+                bookingDetail.BookingStatus = booking.BookingStatus;
+                bookingDetail.TotalPrice = booking.TotalPrice;
+                bookingObservable.Add(bookingDetail);
+            }
+
+            BookingReservationList = bookingObservable;
         }
+   
 
         private async Task UpdateReservationStatusAsync(object obj)
         {
@@ -49,8 +65,7 @@ namespace PresentationLayer.ViewModels
                 if (ans == MessageBoxResult.Yes)
                 {
                     await _bookingReservationService.ApproveBookingReservation(id);
-                    var bookingReservation = await _bookingReservationService.GetPendingBookingReservationsAsync();
-                    BookingReservationList = new ObservableCollection<BookingReservationReportStatisticDTO>(bookingReservation);
+                    await GetBookingReservationsForManageAsync();
                 }
             }
         }

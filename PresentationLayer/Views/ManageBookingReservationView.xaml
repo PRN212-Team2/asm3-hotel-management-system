@@ -49,6 +49,20 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
+                            <GridViewColumn Width="Auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Command="{Binding ShowBookingDetailViewCommand}"
+                                                    CommandParameter="{Binding Id}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="Details" VerticalAlignment="Center" 
+                                                        Foreground="AntiqueWhite" Margin="0 0 10 0"/>
+                                                <TextBlock Text="Details" Foreground="AntiqueWhite"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
