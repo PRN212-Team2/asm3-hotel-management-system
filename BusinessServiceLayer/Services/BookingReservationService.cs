@@ -36,7 +36,8 @@ namespace BusinessServiceLayer.Services
 
         public async Task<IReadOnlyList<BookingReservationDTO>> GetBookingReservationsForManageAsync()
         {
-            var bookingReservations = await _unitOfWork.Repository<BookingReservation>().ListAllAsync();
+            var spec = new BookingReservationSpecification(default(DateTime), default(DateTime));
+            var bookingReservations = await _unitOfWork.Repository<BookingReservation>().ListAsync(spec);
 
             return _mapper.Map<IReadOnlyList<BookingReservation>, IReadOnlyList<BookingReservationDTO>>(bookingReservations);
         }
@@ -53,7 +54,11 @@ namespace BusinessServiceLayer.Services
         {
             decimal totalPrice = 0;
             var booking = await _unitOfWork.Repository<BookingReservation>().ListAllAsync();
-            var revId = booking.Max(b => b.Id) + 1;
+            var revId = 1;
+            if(booking.Any())
+            {
+                revId = booking.Max(b => b.Id) + 1;
+            }
             List<BookingDetail> bookingDetails = new List<BookingDetail>();
             
             foreach(var item in basketItems)

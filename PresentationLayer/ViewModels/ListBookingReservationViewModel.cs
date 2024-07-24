@@ -45,6 +45,7 @@ namespace PresentationLayer.ViewModels
                 bookingDetail.BookingDate = booking.BookingDate;
                 bookingDetail.BookingStatus = booking.BookingStatus;
                 bookingDetail.TotalPrice = booking.TotalPrice;
+                bookingDetail.CustomerName = booking.CustomerName;
                 bookingObservable.Add(bookingDetail);
             }
 

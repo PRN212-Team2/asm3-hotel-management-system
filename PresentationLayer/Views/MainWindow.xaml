@@ -10,7 +10,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="850" Width="1450"
         Background="{DynamicResource MaterialDesignPaper}"
-        Closing="Window_Closing">
+        Closing="Window_Closing"
+        ResizeMode="NoResize">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
     </Window.Resources>

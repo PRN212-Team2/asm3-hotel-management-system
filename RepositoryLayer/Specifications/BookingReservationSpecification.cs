@@ -17,6 +17,7 @@ namespace RepositoryLayer.Specifications
             && x.BookingDate <= DateOnly.FromDateTime(endDate))
             )
         {
+            AddInclude(x => x.Customer);
             AddOrderByDescending(x => x.BookingDate);
         }
 

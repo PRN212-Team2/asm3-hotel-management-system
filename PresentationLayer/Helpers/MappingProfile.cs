@@ -20,10 +20,12 @@ namespace PresentationLayer.Helpers
                 .ForMember(d => d.Birthday, o => o.MapFrom(s => s.CustomerBirthday.ToDateTime(new TimeOnly())));
             CreateMap<UserDTO, UserAccountModel>();
             CreateMap<BookingReservation, BookingReservationDTO>()
-                .ForMember(d => d.BookingDate, o => o.MapFrom(s => s.BookingDate.ToDateTime(new TimeOnly())));
+                .ForMember(d => d.BookingDate, o => o.MapFrom(s => s.BookingDate.ToDateTime(new TimeOnly())))
+                .ForMember(d => d.CustomerName, o => o.MapFrom(s => s.Customer.CustomerFullName));
             CreateMap<CustomerProfileViewModel, CustomerToAddOrUpdateDTO>();
             CreateMap<BookingReservation, BookingReservationReportStatisticDTO>()
-                .ForMember(d => d.BookingDate, o => o.MapFrom(s => s.BookingDate.ToDateTime(new TimeOnly())));
+                .ForMember(d => d.BookingDate, o => o.MapFrom(s => s.BookingDate.ToDateTime(new TimeOnly())))
+                .ForMember(d => d.CustomerName, o => o.MapFrom(s => s.Customer.CustomerFullName));
             CreateMap<RoomInformation, RoomInformationDTO>()
                 .ForMember(d => d.RoomTypeName, o => o.MapFrom(s => s.RoomType.RoomTypeName))
                 .ForMember(d => d.TypeDescription, o => o.MapFrom(s => s.RoomType.TypeDescription))
@@ -33,7 +35,8 @@ namespace PresentationLayer.Helpers
                 .ForMember(d => d.StartDate, o => o.MapFrom(s => s.StartDate.ToDateTime(new TimeOnly())))
                 .ForMember(d => d.EndDate, o => o.MapFrom(s => s.EndDate.ToDateTime(new TimeOnly())));
             CreateMap<BookingReservation, BookingReservationDetailDTO>()
-                .ForMember(d => d.BookingDate, o => o.MapFrom(s => s.BookingDate.ToDateTime(new TimeOnly())));
+                .ForMember(d => d.BookingDate, o => o.MapFrom(s => s.BookingDate.ToDateTime(new TimeOnly())))
+                .ForMember(d => d.CustomerName, o => o.MapFrom(s => s.Customer.CustomerFullName));
             CreateMap<RoomType, RoomTypeDTO>();
             CreateMap<BasketItem, BasketItemDTO>();
             CreateMap<RoomInformationToAddOrUpdateDTO, RoomInformation>();

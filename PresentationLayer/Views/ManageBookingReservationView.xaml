@@ -26,7 +26,7 @@
                             <GridViewColumn Header="Id" Width="Auto" DisplayMemberBinding="{Binding Id}"/>
                             <GridViewColumn Header="Booking Date" Width="Auto" DisplayMemberBinding="{Binding BookingDate, StringFormat=d}"/>
                             <GridViewColumn Header="TotalPrice" Width="Auto" DisplayMemberBinding="{Binding TotalPrice, StringFormat=C}"/>
-                            <GridViewColumn Header="Customer ID" Width="Auto" DisplayMemberBinding="{Binding CustomerId}"/>
+                            <GridViewColumn Header="Customer Name" Width="Auto" DisplayMemberBinding="{Binding CustomerName}"/>
                             <GridViewColumn Header="Success" Width="Auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>

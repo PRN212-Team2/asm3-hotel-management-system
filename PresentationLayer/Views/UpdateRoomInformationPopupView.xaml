@@ -8,10 +8,10 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Update Room" Height="500" Width="500"
-        ResizeMode="NoResize"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="400"/>

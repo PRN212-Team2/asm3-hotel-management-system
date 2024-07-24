@@ -17,6 +17,7 @@ namespace PresentationLayer.ViewModels
         public int Id { get; set; }
         public DateTime BookingDate { get; set; }
         public decimal TotalPrice { get; set; }
+        public string CustomerName { get; set; }
         public bool BookingStatus { get; set; }
         public RelayCommand ShowBookingDetailViewCommand { get; set; }
 
