@@ -34,15 +34,11 @@ namespace BusinessServiceLayer.Services
             return _mapper.Map<IReadOnlyList<BookingReservation>, IReadOnlyList<BookingReservationDTO>>(bookingReservations);
         }
 
-        public async Task<IReadOnlyList<BookingReservationReportStatisticDTO>> GetPendingBookingReservationsAsync()
+        public async Task<IReadOnlyList<BookingReservationDTO>> GetBookingReservationsForManageAsync()
         {
             var bookingReservations = await _unitOfWork.Repository<BookingReservation>().ListAllAsync();
 
-            var pendingReservations = bookingReservations
-                .Where(x => x.BookingStatus == 0)
-                .ToList();
-
-            return _mapper.Map<IReadOnlyList<BookingReservation>, IReadOnlyList<BookingReservationReportStatisticDTO>>(pendingReservations);
+            return _mapper.Map<IReadOnlyList<BookingReservation>, IReadOnlyList<BookingReservationDTO>>(bookingReservations);
         }
 
         public async Task<IReadOnlyList<BookingReservationReportStatisticDTO>> GetBookingReservationsForReportAsync(DateTime startDate, DateTime endDate)
