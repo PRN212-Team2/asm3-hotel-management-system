@@ -1,6 +1,6 @@
 [
   {
-    "CustomerId": 3,
+    "Id": 3,
     "CustomerFullName": "William Shakespeare",
     "Telephone": "0903939393",
     "EmailAddress": "WilliamShakespeare@FUMiniHotel.org",
@@ -9,7 +9,7 @@
     "Password": "123@"
   },
   {
-    "CustomerId": 5,
+    "Id": 5,
     "CustomerFullName": "Elizabeth Taylor",
     "Telephone": "0903939377",
     "EmailAddress": "ElizabethTaylor@FUMiniHotel.org",
@@ -18,7 +18,7 @@
     "Password": "144@"
   },
   {
-    "CustomerId": 8,
+    "Id": 8,
     "CustomerFullName": "James Cameron",
     "Telephone": "0903946582",
     "EmailAddress": "JamesCameron@FUMiniHotel.org",
@@ -27,7 +27,7 @@
     "Password": "443@"
   },
   {
-    "CustomerId": 9,
+    "Id": 9,
     "CustomerFullName": "Charles Dickens",
     "Telephone": "0903955633",
     "EmailAddress": "CharlesDickens@FUMiniHotel.org",
@@ -36,7 +36,7 @@
     "Password": "563@"
   },
   {
-    "CustomerId": 10,
+    "Id": 10,
     "CustomerFullName": "George Orwell",
     "Telephone": "0913933493",
     "EmailAddress": "GeorgeOrwell@FUMiniHotel.org",
@@ -45,7 +45,7 @@
     "Password": "177@"
   },
   {
-    "CustomerId": 11,
+    "Id": 11,
     "CustomerFullName": "Victoria Beckham",
     "Telephone": "0983246773",
     "EmailAddress": "VictoriaBeckham@FUMiniHotel.org",

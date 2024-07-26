@@ -1,6 +1,6 @@
 [
   {
-    "RoomId": 1,
+    "Id": 1,
     "RoomNumber": "2364",
     "RoomDetailDescription": "A basic room with essential amenities, suitable for individual travelers or couples.",
     "RoomMaxCapacity": 3,
@@ -9,7 +9,7 @@
     "RoomPricePerDay": 149.0000
   },
   {
-    "RoomId": 2,
+    "Id": 2,
     "RoomNumber": "3345",
     "RoomDetailDescription": "Deluxe rooms offer additional features such as a balcony or sea view, upgraded bedding, and improved décor.",
     "RoomMaxCapacity": 5,
@@ -18,7 +18,7 @@
     "RoomPricePerDay": 299.0000
   },
   {
-    "RoomId": 3,
+    "Id": 3,
     "RoomNumber": "4432",
     "RoomDetailDescription": "A luxurious and spacious room with separate living and sleeping areas, ideal for guests seeking extra comfort and space.",
     "RoomMaxCapacity": 4,
@@ -27,7 +27,7 @@
     "RoomPricePerDay": 199.0000
   },
   {
-    "RoomId": 5,
+    "Id": 5,
     "RoomNumber": "3342",
     "RoomDetailDescription": "Foor 3, Window in the North West",
     "RoomMaxCapacity": 5,
@@ -36,7 +36,7 @@
     "RoomPricePerDay": 219.0000
   },
   {
-    "RoomId": 7,
+    "Id": 7,
     "RoomNumber": "4434",
     "RoomDetailDescription": "Floor 4, main window in the South",
     "RoomMaxCapacity": 4,
